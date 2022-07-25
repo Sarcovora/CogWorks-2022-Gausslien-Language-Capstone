@@ -1,7 +1,7 @@
 # contents of setup.py
 import setuptools
 
-PROJECT_NAME = "CogLang"
+PROJECT_NAME = "OmniCog"
 
 setuptools.setup(
     name=PROJECT_NAME,
