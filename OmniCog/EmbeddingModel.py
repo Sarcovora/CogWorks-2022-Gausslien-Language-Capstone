@@ -62,7 +62,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 28,
+   "execution_count": 1,
    "id": "da6180be",
    "metadata": {},
    "outputs": [],
@@ -75,7 +75,7 @@
     "    \"\"\"\n",
     "    Model that creates semantic space embeddings using the original image vectors\n",
     "    \"\"\"\n",
-    "    def __init__(self, input_dim, output_dim):\n",
+    "    def __init__(self, input_dim, output_dim, loading_status=False):\n",
     "        \"\"\" \n",
     "        Initializes the layer\n",
     "        \n",
@@ -175,7 +175,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 31,
+   "execution_count": 2,
    "id": "c37838ad",
    "metadata": {},
    "outputs": [
@@ -186,7 +186,7 @@
      "traceback": [
       "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
       "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
-      "Input \u001b[0;32mIn [31]\u001b[0m, in \u001b[0;36m<cell line: 9>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      6\u001b[0m epochs \u001b[38;5;241m=\u001b[39m \u001b[38;5;241m10\u001b[39m\n\u001b[1;32m      7\u001b[0m batch_size \u001b[38;5;241m=\u001b[39m \u001b[38;5;241m32\u001b[39m\n\u001b[0;32m----> 9\u001b[0m training_data, testing_data \u001b[38;5;241m=\u001b[39m \u001b[43mextract_triples\u001b[49m(path) \u001b[38;5;66;03m# what is path\u001b[39;00m\n\u001b[1;32m     11\u001b[0m \u001b[38;5;28;01mfor\u001b[39;00m iteration \u001b[38;5;129;01min\u001b[39;00m \u001b[38;5;28mrange\u001b[39m(\u001b[38;5;241m0\u001b[39m, epochs):\n\u001b[1;32m     12\u001b[0m     indices \u001b[38;5;241m=\u001b[39m np\u001b[38;5;241m.\u001b[39marange(\u001b[38;5;28mlen\u001b[39m(training_data))\n",
+      "Input \u001b[0;32mIn [2]\u001b[0m, in \u001b[0;36m<cell line: 9>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      6\u001b[0m epochs \u001b[38;5;241m=\u001b[39m \u001b[38;5;241m10\u001b[39m\n\u001b[1;32m      7\u001b[0m batch_size \u001b[38;5;241m=\u001b[39m \u001b[38;5;241m32\u001b[39m\n\u001b[0;32m----> 9\u001b[0m training_data, testing_data \u001b[38;5;241m=\u001b[39m \u001b[43mextract_triples\u001b[49m(\u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mcaptions_train2014.json\u001b[39m\u001b[38;5;124m\"\u001b[39m)\n\u001b[1;32m     11\u001b[0m \u001b[38;5;28;01mfor\u001b[39;00m iteration \u001b[38;5;129;01min\u001b[39;00m \u001b[38;5;28mrange\u001b[39m(\u001b[38;5;241m0\u001b[39m, epochs):\n\u001b[1;32m     12\u001b[0m     \n\u001b[1;32m     13\u001b[0m     \u001b[38;5;66;03m# creates a shuffled array of training indices\u001b[39;00m\n\u001b[1;32m     14\u001b[0m     indices \u001b[38;5;241m=\u001b[39m np\u001b[38;5;241m.\u001b[39marange(\u001b[38;5;28mlen\u001b[39m(training_data))\n",
       "\u001b[0;31mNameError\u001b[0m: name 'extract_triples' is not defined"
      ]
     }
@@ -200,12 +200,15 @@
     "epochs = 10\n",
     "batch_size = 32\n",
     "\n",
-    "training_data, testing_data = extract_triples(path) # what is path\n",
+    "training_data, testing_data = extract_triples(\"captions_train2014.json\")\n",
     "\n",
     "for iteration in range(0, epochs):\n",
+    "    \n",
+    "    # creates a shuffled array of training indices\n",
     "    indices = np.arange(len(training_data))\n",
     "    np.random.shuffle(indices)\n",
     "    \n",
+    "    # trains the model by improving the loss and accuracy metrics for the training data in batches\n",
     "    for batch_count in range(0, len(training_data)//batch_size):\n",
     "        batch_indices = indices[batch_count * batch_size : (batch_count+1) * batch_size]\n",
     "        batch = training_data[batch_indices]\n",
@@ -223,9 +226,11 @@
     "        \n",
     "        plotter.set_train_batch({\"loss\":loss.item(), \"accuracy\":accuracy}, batch_size=batch_size, plot=False)\n",
     "\n",
+    "    # creates a shuffled array of training indices  \n",
     "    test_indices = np.arange(len(testing_data))\n",
     "    np.random.shuffle(test_indices)\n",
     "        \n",
+    "    # calculates the loss and accuracy for the validation data in batches\n",
     "    for batch_count in range(0, len(testing_data)//batch_size):\n",
     "        test_batch_indices = test_indices[batch_count * batch_size : (batch_count+1) * batch_size]\n",
     "        test_batch = training_data[test_batch_indices]\n",
@@ -240,10 +245,12 @@
     "        \n",
     "        plotter.set_test_batch({\"loss\":test_loss.item(), \"accuracy\":test_accuracy}, batch_size=batch_size, plot=False)\n",
     "    \n",
-    "        \n",
+    "    # plots the loss and accuracy in each epoch\n",
     "    plotter.set_train_epoch()\n",
     "    plotter.set_test_epoch()\n",
-    "        "
+    "\n",
+    "# stores the final weights in a file\n",
+    "save_weights(model.parameters)"
    ]
   },
   {
