@@ -1,4 +1,32 @@
 class CocoDataManager:
+    """
+    Attributes
+    ----------
+    images : list
+        list of image dictionaries
+    captions : list
+        list of caption dictionaries
+    imageID_to_captionID : dictionary {int : int}
+        dictionary that stores image IDs as the key and caption IDs as the value
+    captionID_to_imgID : dictionary {int : int}
+        dictionary that stores captions IDs as the key and image IDs as the value
+    captionID_to_caption : dictionary {int : str}
+        dictionary that stores captions IDs as the key and a caption as the value
+    caption_to_captionID : dictionary {str : int}
+        dictionary that stores captions as the key and a caption IDs as the value
+    imageID_to_url : dictionary {int : str}
+        dictionary that stores image IDs as the key and a coco URL as the value
+    imageIDs : list
+        unsorted list of all image IDs
+    
+    Methods
+    -------
+    getCaptionIDs(self, img_id)
+        Gives a list of caption IDs given an image ID
+    getUrl(self, img_id)
+        Gives a coco url given an image ID
+    """
+
     def __init__ (self, coco_data):
         """
         Initialize a CocoDataManager class instance
