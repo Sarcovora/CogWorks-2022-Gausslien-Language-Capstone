@@ -56,7 +56,7 @@ class CocoDataManager:
             cap = c["caption"]
             
             # adding data to the imageID to captionID dictionary
-            if (img_ID in self.imageID_to_captionID):
+            if (img_id in self.imageID_to_captionID):
                 self.imageID_to_captionID[img_id].append(cap_id)
             else:
                 self.imageID_to_captionID[img_id] = [cap_id]
