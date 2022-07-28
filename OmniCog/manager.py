@@ -68,7 +68,7 @@ class CocoDataManager:
             self.captionID_to_caption[cap_id] = cap
             
         # adding data to the caption to captionID dictionary
-        self.caption_to_captionID = {value:key for key, value in captionID_to_caption.items()}
+        self.caption_to_captionID = {value:key for key, value in self.captionID_to_caption.items()}
         
         for img in self.images:
             img_id = img["id"]
