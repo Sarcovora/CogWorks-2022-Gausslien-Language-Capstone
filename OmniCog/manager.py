@@ -26,7 +26,7 @@ class CocoDataManager:
     getUrl(self, img_id)
         Gives a coco url given an image ID
     """
-
+    
     def __init__ (self, coco_data):
         """
         Initialize a CocoDataManager class instance
