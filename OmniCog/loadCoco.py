@@ -1,4 +1,4 @@
-from OmniCog import CocoDataManager
+from .manager import CocoDataManager
 def load_coco(path):
     filename = get_data_path(path)
     with Path(filename).open() as f:
