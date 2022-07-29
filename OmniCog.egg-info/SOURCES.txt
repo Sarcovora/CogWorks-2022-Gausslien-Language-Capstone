@@ -1,0 +1,15 @@
+README.md
+setup.py
+OmniCog/EmbeddingModel.py
+OmniCog/IDFs.py
+OmniCog/__init__.py
+OmniCog/display_images.py
+OmniCog/embed_query.py
+OmniCog/loadCoco.py
+OmniCog/manager.py
+OmniCog/query_database.py
+OmniCog/tokenize.py
+OmniCog.egg-info/PKG-INFO
+OmniCog.egg-info/SOURCES.txt
+OmniCog.egg-info/dependency_links.txt
+OmniCog.egg-info/top_level.txt
