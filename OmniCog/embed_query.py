@@ -15,7 +15,7 @@ def query_embed(query):
     
     """
     embed = np.zeros(200,)
-    tokens = tokenize(query)
+    tokens = tokenize_caption(query)
     try:
         embed = np.sum(IDF(bigCount)[word]*glove[word] for word in tokens)
         return normalize(embed)
