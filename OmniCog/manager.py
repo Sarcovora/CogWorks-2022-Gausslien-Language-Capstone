@@ -18,6 +18,8 @@ class CocoDataManager:
         dictionary that stores image IDs as the key and a coco URL as the value
     imageIDs : list
         unsorted list of all image IDs
+    captionID_to_captionEmbedding : dictionary {int : np.array(200,)}
+        dictionary that stores caption IDs as the key and a caption embedding as the value
     
     Methods
     -------
@@ -28,6 +30,7 @@ class CocoDataManager:
     """
     
     def __init__ (self, coco_data):
+        from OmniCog import query_embed
         """
         Initialize a CocoDataManager class instance
 
@@ -50,6 +53,8 @@ class CocoDataManager:
         
         self.imageIDs = [i["id"] for i in self.images]
         
+        self.captionID_to_captionEmbedding = {}
+        
         for c in self.captions:
             cap_id = c["id"]
             img_id = c["image_id"]
@@ -66,6 +71,9 @@ class CocoDataManager:
             
             # adding data to the captionID to caption dictionary
             self.captionID_to_caption[cap_id] = cap
+            
+            # adding data to the captionID to caption embedding dictionary
+            self.captionID_to_captionEmbedding[cap_id] = query_embed(cap)
             
         # adding data to the caption to captionID dictionary
         self.caption_to_captionID = {value:key for key, value in self.captionID_to_caption.items()}
