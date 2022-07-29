@@ -1,4 +1,5 @@
 from numpy import linalg
+from tokenize_captions import tokenize_caption
 
 def normalize(unnorm_embed):
     return embed/linalg.norm(embed, axis = 1)
