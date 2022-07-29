@@ -29,7 +29,7 @@ class CocoDataManager:
         Gives a coco url given an image ID
     """
     
-    def __init__ (self, coco_data):
+    def __init__ (self, coco_data, resnet):
         from OmniCog import query_embed
         """
         Initialize a CocoDataManager class instance
@@ -47,7 +47,7 @@ class CocoDataManager:
         
         # removing captions without ResNet descriptor
         for i in range(len(self.unprocessed_images)):
-            if (self.unprocessed_images[i]["id"] in resnet18_features):
+            if (self.unprocessed_images[i]["id"] in resnet):
                 self.images.append(self.unprocessed_images[i])
         
         
