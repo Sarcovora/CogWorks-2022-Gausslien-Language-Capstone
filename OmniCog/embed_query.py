@@ -1,8 +1,8 @@
-from numpy import linalg
+import numpy as np
 from tokenize_captions import tokenize_caption
 
 def normalize(unnorm_embed):
-    return embed/linalg.norm(embed, axis = 1)
+    return embed/np.linalg.norm(embed, axis = 1)
   
 def query_embed(query):
     """

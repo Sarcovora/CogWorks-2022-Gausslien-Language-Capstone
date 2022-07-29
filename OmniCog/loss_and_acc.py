@@ -27,7 +27,6 @@ def margin_loss(trueVec, captionVec, confuserVec, margin=1):
         returns loss for the function (higher if trueVec is far from captionVec or
         confuserVec is close to captionVec)
     """
-    
     return np.max(margin - (trueVec @ captionVec - confuserVec @ captionVec), 0)
     
 def batch_accuracy(batch_losses):
