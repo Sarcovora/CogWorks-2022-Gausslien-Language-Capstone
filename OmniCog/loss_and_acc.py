@@ -1,4 +1,6 @@
 import numpy as np
+from mygrad.nnet.losses import margin_ranking_loss
+
 def margin_loss(trueVec, captionVec, confuserVec, margin=0.25):
     """
     Loss function for training the model that weights image vectors
@@ -29,11 +31,14 @@ def margin_loss(trueVec, captionVec, confuserVec, margin=0.25):
     """
     truesim = np.einsum("nd,nd->n", trueVec, captionVec)
     confusesim = np.einsum("nd,nd->n", confuserVec, captionVec)
-    return np.max(margin - (truesim - confusesim), 0)
+#     return np.max(margin - (truesim - confusesim), 0)
+    return margin_ranking_loss(truesim, confusesim, margin=margin, y=1), truesim, confusesim
     
 def batch_accuracy(batch_losses):
     """
     Given the losses for a batch, compute the accuracy for that batch
+    
+    BROKEN FUNCTION
     
     Parameters
     ----------
@@ -45,4 +50,5 @@ def batch_accuracy(batch_losses):
         accuracy for the given batch
     """
     
-    return np.sum(batch_losses==0)/batch_losses.size
+#     return np.sum(batch_losses==0)/batch_losses.size
+    return np.sum(np.isclose(batch_losses, 0, atol=1e-3))/batch_losses.size

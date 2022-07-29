@@ -37,7 +37,7 @@ def extract_triples(manager, ids, validation=False):
             captionIDs = manager.getCaptionIDs(imID)
         else:
             captionIDs = [random.choice(manager.getCaptionIDs(imID))]
-        tripleList.extend([[imID, capID, getConfuser(imID,ids)] for capID in captionIDs])
+        tripleList.extend([(imID, capID, getConfuser(imID,ids)) for capID in captionIDs])
     return np.array(tripleList)
 
 def getConfuser(trueID, confuserPool):
