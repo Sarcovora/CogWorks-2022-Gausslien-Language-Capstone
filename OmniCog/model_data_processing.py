@@ -1,5 +1,4 @@
 import random
-from OmniCog import load_coco
 import numpy as np
 
 def train_split(image_ids, validation=0.2):
