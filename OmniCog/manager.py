@@ -40,8 +40,16 @@ class CocoDataManager:
             The loaded json file as a dictionary
         """
         
-        self.images = coco_data["images"]
+        self.unprocessed_images = coco_data["images"]
         self.captions = coco_data["annotations"]
+        
+        self.images = []
+        
+        # removing captions without ResNet descriptor
+        for i in range(len(self.unprocessed_images)):
+            if (self.unprocessed_images[i]["id"] in resnet18_features):
+                self.images.append(self.unprocessed_images[i])
+        
         
         self.imageID_to_captionID = {}
         self.captionID_to_imgID = {}
