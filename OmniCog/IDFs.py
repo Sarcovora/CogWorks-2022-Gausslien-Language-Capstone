@@ -21,7 +21,7 @@ def IDFs(counter):
     
     Returns
     -------
-    IDFs: a dictionary mapping vocab words to inverse document frequencies
+    IDFs: {"string": float} a dictionary mapping vocab words to inverse document frequencies
     """
     
     
