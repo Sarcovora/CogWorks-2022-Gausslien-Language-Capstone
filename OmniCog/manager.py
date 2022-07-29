@@ -31,6 +31,9 @@ class CocoDataManager:
     
     def __init__ (self, coco_data, resnet):
         from OmniCog import query_embed
+        from IDFs import IDFs, captionCounter
+        from load_glove import load_glove
+        
         """
         Initialize a CocoDataManager class instance
 
@@ -63,6 +66,10 @@ class CocoDataManager:
         
         self.captionID_to_captionEmbedding = {}
         
+        bigCount, captions = captionCounter(coco_data)
+        idfs = IDFs(bigCount, captions)
+        glove = load_glove()
+        
         for c in self.captions:
             cap_id = c["id"]
             img_id = c["image_id"]
@@ -81,7 +88,7 @@ class CocoDataManager:
             self.captionID_to_caption[cap_id] = cap
             
             # adding data to the captionID to caption embedding dictionary
-            self.captionID_to_captionEmbedding[cap_id] = query_embed(cap)
+            self.captionID_to_captionEmbedding[cap_id] = query_embed(cap, idfs, glove)
             
         # adding data to the caption to captionID dictionary
         self.caption_to_captionID = {value:key for key, value in self.captionID_to_caption.items()}

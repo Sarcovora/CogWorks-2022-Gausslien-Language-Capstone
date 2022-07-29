@@ -1,10 +1,11 @@
 import numpy as np
 from tokenize_captions import tokenize_caption
+from IDFs import IDFs
 
-def normalize(unnorm_embed):
-    return embed/np.linalg.norm(embed, axis = 1)
+def normalize(embed):
+    return embed/np.linalg.norm(embed)
   
-def query_embed(query):
+def query_embed(query, idfs, glove):
     """
     Parameter:
         query: string
@@ -17,9 +18,12 @@ def query_embed(query):
     """
     embed = np.zeros(200,)
     tokens = tokenize_caption(query)
-    try:
-        embed = np.sum(IDFs(bigCount)[word]*glove[word] for word in tokens)
-        return normalize(embed)
-    except:
-        return embed
-     
+    
+    flag = False
+    for word in tokens:
+        try:
+            embed += idfs[word]*glove[word]
+            flag = True
+        except:
+            pass
+    return normalize(embed) if flag else embed

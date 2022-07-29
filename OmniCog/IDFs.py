@@ -1,16 +1,20 @@
 from collections import Counter
 import math
 from numpy import linalg
+from tokenize_captions import tokenize_caption
 
-bigCount = Counter()
-captions = 0
 
-for caption_info in coco_data["annotations"]:
-    captions +=1
-    caption_vocab = set(tokenize(caption_info["caption"]))
-    bigCount.update(caption_vocab)
+def captionCounter(coco_data):
+    bigCount = Counter()
+    captions = 0
+
+    for caption_info in coco_data["annotations"]:
+        captions +=1
+        caption_vocab = set(tokenize_caption(caption_info["caption"]))
+        bigCount.update(caption_vocab)
+    return bigCount, captions
         
-def IDFs(counter):
+def IDFs(bigCount, captions):
     """ 
    
     Parameters
