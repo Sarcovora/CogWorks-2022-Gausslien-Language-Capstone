@@ -1,5 +1,6 @@
 import random
 from OmniCog import load_coco
+import numpy as np
 
 def train_split(path, validation=0.2):
     manager = load_coco(path)
@@ -41,8 +42,8 @@ def extract_triples(path, ids, validation=False):
             captionIDs = manager.getCaptionIDs(imID)
         else:
             captionIDs = [random.choice(manager.getCaptionIDs(imID))]
-        tripleList.extend([(imID, capID, getConfuser(imID,ids)) for capID in captionIDs])
-    return tripleList
+        tripleList.extend([[imID, capID, getConfuser(imID,ids)] for capID in captionIDs])
+    return np.array(tripleList)
 
 def getConfuser(trueID, confuserPool):
     while True:
