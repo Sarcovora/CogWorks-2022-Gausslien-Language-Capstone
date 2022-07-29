@@ -2,9 +2,7 @@ import random
 from OmniCog import load_coco
 import numpy as np
 
-def train_split(path, validation=0.2):
-    manager = load_coco(path)
-    image_ids = manager.imageIDs
+def train_split(image_ids, validation=0.2):
     N = len(image_ids)
     breakpoint = int(validation*N)
     
@@ -13,7 +11,7 @@ def train_split(path, validation=0.2):
     #returns (validation, training)
     return (image_ids[:breakpoint], image_ids[breakpoint:])
 
-def extract_triples(path, ids, validation=False):
+def extract_triples(manager, ids, validation=False):
     """
     Gets triples every epoch
     
@@ -30,8 +28,6 @@ def extract_triples(path, ids, validation=False):
     list
         Massive list of 2-tuple ids (true, caption)
     """
-    manager = load_coco(path)
-    image_ids = manager.imageIDs
     
     N = len(ids)
     
