@@ -20,7 +20,7 @@ def download_image(img_url: str) -> Image:
     response = requests.get(img_url)
     return Image.open(io.BytesIO(response.content))
 
-def display_images(k_similarity_scores):
+def display_images(k_ids, coco_data, resnet):
     """Displays the images that were returned by the query_database function. (I think)
     
     Parameters
@@ -33,7 +33,7 @@ def display_images(k_similarity_scores):
     PIL.Image
         The images. (hopefully)"""
     
-    data = CocoDataManager(coco_data)
-    urls = [data.getUrl(ids) for ids in k_similarity_scores[1]]
+    data = CocoDataManager(coco_data, resnet)
+    urls = [data.getUrl(ids) for ids in k_ids]
     for img_url in urls:
         download_image(img_url)
